@@ -22,10 +22,17 @@ class DataStream:
 
 #--------Constructor ---------------------------  
     def __init__(self, username, password, dataSource=None):
+<<<<<<< HEAD
         self.username = username
         self.password = password
         self.dataSource = dataSource
         self.token = self._get_token()
+=======
+        DataStream.username = username
+        DataStream.password = password
+        DataStream.dataSource = dataSource
+        self._get_token()
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
 #-------------------------------------------------------  
 #------------------------------------------------------- 
     def post_user_request(self, tickers, fields=[], start='', end='', freq='', kind=1):
@@ -67,7 +74,11 @@ class DataStream:
             return None
             
     def get_data(self, tickers, fields=[], start='', end='', freq='', kind=1):
+<<<<<<< HEAD
         getData_url = self.url + "GetData"
+=======
+        getData_url = DataStream.url + "GetData"
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
         raw_dataRequest = ""
         json_dataRequest = ""
         json_Response = ""
@@ -75,11 +86,19 @@ class DataStream:
         try:
             req = self.post_user_request(tickers, fields, start, end, freq, kind)
             datarequest = DSReq.DataRequest()
+<<<<<<< HEAD
             if (self.token == None):
                 raise Exception("Invalid Token Value")
             else:
                 raw_dataRequest = datarequest.get_Request(req, self.dataSource, 
                                                       self.token)
+=======
+            if (DataStream.token == None):
+                raise Exception("Invalid Token Value")
+            else:
+                raw_dataRequest = datarequest.get_Request(req, DataStream.dataSource, 
+                                                      DataStream.token)
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
                 #print(raw_dataRequest)
             if (raw_dataRequest != ""):
                 json_dataRequest = self._json_Request(raw_dataRequest)
@@ -97,19 +116,32 @@ class DataStream:
             return None
     
     def get_bundle_data(self, bundleRequest=[]):
+<<<<<<< HEAD
         getDataBundle_url = self.url + "GetDataBundle"
+=======
+        getDataBundle_url = DataStream.url + "GetDataBundle"
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
         raw_dataRequest = ""
         json_dataRequest = ""
         json_Response = ""
         
         try:
             datarequest = DSReq.DataRequest()
+<<<<<<< HEAD
             if (self.token == None):
                 raise Exception("Invalid Token Value")
             else:
                 raw_dataRequest = datarequest.get_bundle_Request(bundleRequest, 
                                                              self.dataSource, 
                                                              self.token)
+=======
+            if (DataStream.token == None):
+                raise Exception("Invalid Token Value")
+            else:
+                raw_dataRequest = datarequest.get_bundle_Request(bundleRequest, 
+                                                             DataStream.dataSource, 
+                                                             DataStream.token)
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
             #print(raw_dataRequest)
             if (raw_dataRequest != ""):
                 json_dataRequest = self._json_Request(raw_dataRequest)
@@ -129,13 +161,20 @@ class DataStream:
 #-------------------------------------------------------             
 #-------Helper Functions---------------------------------------------------
     def _get_token(self):
+<<<<<<< HEAD
         token_url = self.url + "GetToken"
         try:
             tokenReq = DSReq.TokenRequest(self.username, self.password, self.dataSource)
+=======
+        token_url = DataStream.url + "GetToken"
+        try:
+            tokenReq = DSReq.TokenRequest(DataStream.username, DataStream.password, DataStream.dataSource)
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
             raw_tokenReq = tokenReq.get_TokenRequest()
             json_tokenReq = self._json_Request(raw_tokenReq)
             #Post the token request to get response in json format
             json_Response = requests.post(token_url, json=json_tokenReq).json()
+<<<<<<< HEAD
             return json_Response["TokenValue"]
         except json.JSONDecodeError:
             print("JSON decoder error while posting Token request")
@@ -143,6 +182,14 @@ class DataStream:
         except:
             print("Token Request : Unexpected error")
             return None
+=======
+            DataStream.token = json_Response["TokenValue"]
+        except json.JSONDecodeError:
+            print("JSON decoder error while posting Token request")
+        except:
+            print("Token Request : Unexpected error")
+            DataStream.token == None
+>>>>>>> 3babb00d4f8a9997f41fcaa4bede32f95750c604
             
     def _json_Request(self, raw_text):
         #convert the dictionary (raw text) to json text first
